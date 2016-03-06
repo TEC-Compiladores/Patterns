@@ -1,13 +1,18 @@
 package main;
 
-import server.Server;
+import logic.Core;
+
+
+
+
 
 public class Main {
 
 	public static void main(String[] args) {
-		Server server = new Server();
-		
-		server.startServer();
+
+		Core core = new Core(8001, true);
+
+
 
 	}
 
