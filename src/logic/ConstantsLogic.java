@@ -9,6 +9,9 @@ interface ConstantsLogic {
 
 	// ###################### CLASS CORE ######################
 
+	// ERROR
+	public static final String CORE_NULL_REPLY = "El servidor genero una respuesta nula";
+
 	//
 	public static final String CORE_CLASS = "CORE >> ";
 	public static final String CORE_REMOVED_USER = "Se elimino un usuario de la lista de usuarios. ID: ";
@@ -22,6 +25,8 @@ interface ConstantsLogic {
 
 	// ERROR
 	public static final String USER_ERROR_STOP_THREAD = "Error al detener el thread del usuario ID: ";
+	public static final String USER_ERROR_CLOSE_SOCKET = "Error al cerrar el socket del usuario ID: ";
+	public static final String USER_ERROR_IO_SOCKET = "Error al obtener o enviar un mensaje al usuario ID: ";
 
 	// NOTIFICATIONS
 	public static final String USER_CONNECTION_CLOSED = "Se cerro la conexión con el usuario ID: ";

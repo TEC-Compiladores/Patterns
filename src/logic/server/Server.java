@@ -63,7 +63,7 @@ public class Server implements Runnable, ConstantsServer {
 			_thread.join();
 		} catch (InterruptedException e) {
 			if (_debug)
-				System.out.println(SERVER_CLASS + SERVER_ERROR_STOP_THREAD);
+				System.err.println(SERVER_CLASS + SERVER_ERROR_STOP_THREAD);
 			e.printStackTrace();
 		}
 	}
@@ -121,15 +121,14 @@ public class Server implements Runnable, ConstantsServer {
 			while (_running) {
 				_socket = _serverSocket.accept();
 				if (_debug)
-					System.out.println(SERVER_CLASS
-							+ SERVER_SUCCESSFUL_CONNECTION);
+					System.out.println(SERVER_CLASS + SERVER_SUCCESSFUL_CONNECTION);
 				_core.newUser(_socket);
 			}
 			_serverSocket.close();
 			_socket.close();
 		} catch (Exception e) {
 			if (_debug)
-				System.out.println(SERVER_CLASS + SERVER_ERROR_IN_THREAD);
+				System.err.println(SERVER_CLASS + SERVER_ERROR_IN_THREAD);
 			e.printStackTrace();
 		}
 	}

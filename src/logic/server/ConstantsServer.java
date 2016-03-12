@@ -21,4 +21,5 @@ interface ConstantsServer {
 	public static final String SERVER_THREAD_NAME = "Servidor";
 	public static final String SERVER_CLASS = "SERVER >> ";
 
+
 }

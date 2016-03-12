@@ -64,7 +64,7 @@ public class User implements Runnable, ConstantsLogic {
 			_thread.join();
 		} catch (InterruptedException e) {
 			if (_debug)
-				System.out.println(USER_CLASS + USER_ERROR_STOP_THREAD + _id);
+				System.err.println(USER_CLASS + USER_ERROR_STOP_THREAD + _id);
 			e.printStackTrace();
 		}
 	}
@@ -82,9 +82,27 @@ public class User implements Runnable, ConstantsLogic {
 
 
 
+	private void killUser() {
+
+		try {
+			_socket.close();
+		} catch (IOException e) {
+			if (_debug)
+				System.err.println(USER_CLASS + USER_ERROR_CLOSE_SOCKET + _id);
+		}
+
+		if (_debug)
+			System.out.println(USER_CLASS + USER_CONNECTION_CLOSED + _id);
+
+		_core.removeUser(this);
+		this.stopRun();
+	}
+
+
+
 
 	/**
-	 * Thread que se mantiene recibiendo los datos enviados por el control
+	 * Thread que mantiene la comunicación con el usuario
 	 */
 	@Override
 	public void run() {
@@ -94,27 +112,23 @@ public class User implements Runnable, ConstantsLogic {
 			_output = new DataOutputStream(_socket.getOutputStream());
 
 			while (_running) {
+				// Se obtienen las peticiones del usuario
 				_message = _input.readUTF();
 				if (_message != USER_EMPTY_1 || _message != USER_EMPTY_2) {
 					if (_message.equals(USER_EXIT_MESSAGE)) {
-						_socket.close();
-						if (_debug)
-							System.out.println(USER_CLASS
-									+ USER_CONNECTION_CLOSED + _id);
-						_core.removeUser(this);
-						this.stopRun();
-						return;
+						this.killUser();
 					}
 					else {
-						System.out.println(_message);
+						String reply = _core.parser(_message);
+						// Se envian las respuestas al usuario
+						_output.writeUTF(reply);
 					}
-
 				}
-				// _output.writeUTF(_life + "," + _fuel + "," + _bullets);
 			}
 
 		} catch (IOException e) {
-
+			if (_debug)
+				System.err.println(USER_CLASS + USER_ERROR_IO_SOCKET + _id);
 		}
 
 	}

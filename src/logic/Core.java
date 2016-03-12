@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import logic.server.Server;
+import dataAccess.Xml;
 
 
 /**
@@ -22,8 +23,11 @@ public class Core implements ConstantsLogic {
 	private static int _port;
 	private static boolean _debug;
 	private static AtomicLong _idCounter;
+	private static final Object _lock = new Object();;
+
 
 	private Server _server;
+	private Xml _xml;
 	private List<User> _users;
 	private int _userCounter;
 
@@ -42,10 +46,12 @@ public class Core implements ConstantsLogic {
 		_debug = pDebug;
 		_idCounter = new AtomicLong();
 
+
 		_users = Collections.synchronizedList(new ArrayList<User>());
 		_userCounter = CORE_ZERO;
 
-		this.startServer();
+		// this.startServer();
+		_xml = new Xml(_debug);
 	}
 
 
@@ -119,4 +125,21 @@ public class Core implements ConstantsLogic {
 		if (_debug)
 			System.out.println(CORE_CLASS + CORE_REMOVED_USER + id);
 	}
+
+
+
+	public String parser(String pMessage) {
+
+		synchronized (_lock) {
+			String reply = this._xml.manageMessage(pMessage);
+
+			if (reply == null) {
+				System.err.println(CORE_CLASS + CORE_NULL_REPLY);
+			}
+			return reply;
+
+		}
+	}
+
+
 }
