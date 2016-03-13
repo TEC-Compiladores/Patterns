@@ -118,6 +118,7 @@ public class Server implements Runnable, ConstantsServer {
 			_serverSocket.setReuseAddress(true);
 			_socket = new Socket();
 
+
 			while (_running) {
 				_socket = _serverSocket.accept();
 				if (_debug)

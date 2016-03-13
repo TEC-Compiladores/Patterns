@@ -114,14 +114,17 @@ public class User implements Runnable, ConstantsLogic {
 			while (_running) {
 				// Se obtienen las peticiones del usuario
 				_message = _input.readUTF();
-				if (_message != USER_EMPTY_1 || _message != USER_EMPTY_2) {
+				if (!_message.equals(USER_EMPTY_1) || !_message.equals(USER_EMPTY_2)) {
 					if (_message.equals(USER_EXIT_MESSAGE)) {
 						this.killUser();
 					}
 					else {
+						System.out.println("ENTRANTE: " + _message);
 						String reply = _core.parser(_message);
+						System.out.println("RESPUESTA A GERALD!!!!!: " + reply);
 						// Se envian las respuestas al usuario
 						_output.writeUTF(reply);
+						_message = "";
 					}
 				}
 			}

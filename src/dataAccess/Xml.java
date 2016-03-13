@@ -84,9 +84,9 @@ public class Xml implements ConstantsDataAccess {
 
 		_nodes = new Node[3];
 		Node root = _doc.getFirstChild();
-		_nodes[XML_NODE_USERS] = root.getChildNodes().item(XML_NODE_USERS);
-		_nodes[XML_NODE_GAMES] = root.getChildNodes().item(XML_NODE_GAMES);
-		_nodes[XML_NODE_SCORES] = root.getChildNodes().item(XML_NODE_SCORES);
+		_nodes[0] = root.getChildNodes().item(XML_NODE_USERS);
+		_nodes[1] = root.getChildNodes().item(XML_NODE_GAMES);
+		_nodes[2] = root.getChildNodes().item(XML_NODE_SCORES);
 		if (_debug)
 			System.out.println(XML_CLASS + XML_SUCCESSFUL_LOAD);
 	}
@@ -113,16 +113,16 @@ public class Xml implements ConstantsDataAccess {
 
 		Element users = _doc.createElement(XML_NAME_NODE_USERS);
 		root.appendChild(users);
-		_nodes[XML_NODE_USERS] = root.getChildNodes().item(XML_NODE_USERS);
+		_nodes[0] = root.getChildNodes().item(XML_NODE_USERS);
 
 		Element games = _doc.createElement(XML_NAME_NODE_GAMES);
 		root.appendChild(games);
-		_nodes[XML_NODE_GAMES] = root.getChildNodes().item(XML_NODE_GAMES);
+		_nodes[1] = root.getChildNodes().item(XML_NODE_GAMES);
 
 
 		Element scores = _doc.createElement(XML_NAME_NODE_SCORES);
 		root.appendChild(scores);
-		_nodes[XML_NODE_SCORES] = _doc.getChildNodes().item(XML_NODE_SCORES);
+		_nodes[2] = _doc.getChildNodes().item(XML_NODE_SCORES);
 
 		this.saveFile();
 
@@ -153,6 +153,10 @@ public class Xml implements ConstantsDataAccess {
 				System.err.println(XML_CLASS + XML_ERROR_SAVE_FILE);
 		}
 
+		this._doc = null;
+		this._nodes = null;
+		this.loadFile();
+
 	}
 
 
@@ -160,16 +164,35 @@ public class Xml implements ConstantsDataAccess {
 	public String manageMessage(String pMessage) {
 
 		Document doc = this._tools.parseToDocument(pMessage);
-		String message = this._tools.getValue(_doc, XML_XPATH_MESSAGE);
+		if (doc == null) {
+			System.err.println(XML_CLASS + "Se recibio un mensaje incorrecto");
+			return null;
+		}
+
+		String message = this._tools.getValue(doc, XML_XPATH_MESSAGE);
+		System.out.println("##" + message + "##");
 		String reply = null;
 
-		if (message == XML_REQUEST_GAMELIST) {
+		if (message.equals(XML_REQUEST_GAMELIST)) {
 			reply = this.getListOfGames();
 		}
-		else if (message == XML_REGISER_NEWGAME) {
-			this.registerNewGame(doc);
-			reply = " ";
+		else if (message.equals(XML_REGISER_NEWGAME)) {
+			reply = this.registerNewGame(doc);
 		}
+		else if (message.equals(XML_REGISTER_NEWPLAYER)) {
+			reply = this.registerNewPlayer(doc);
+		}
+		else if (message.equals("GameInfo")) {
+			reply = this.getGameInfo(doc);
+		}
+		else if (message.equals("PlayInfo")) {
+			reply = this.getPlayInfo(doc);
+		}
+		else if (message.equals("NewAttempt")) {
+			reply = this.registerNewAttempt(doc);
+		}
+		else
+			System.out.println("Mensaje desconocido");
 
 		return reply;
 	}
@@ -191,16 +214,24 @@ public class Xml implements ConstantsDataAccess {
 		Element root = document.createElement(XML_REPLY_ROOT);
 		document.appendChild(root);
 
-		Element games = document.createElement("ActiveGames");
-		root.appendChild(games);
+		Element amount = document.createElement("amount");
+		amount.appendChild(document.createTextNode(String.valueOf(gameList.getLength())));
+		root.appendChild(amount);
+
+		System.out.println("CANTIDAD DE JUEGOS: " + gameList.getLength());
+		// Element games = document.createElement(XML_REPLY_ACTIVEGAMES_NODE);
 
 		for (int i = 0; i < gameList.getLength(); i++) {
 			Element gameName = document.createElement(XML_REPLY_GAME_NODE);
-			gameName.setNodeValue(gameList.item(i).getNodeValue());
-			games.appendChild(gameName);
+			gameName.appendChild(document.createTextNode(gameList.item(i).getTextContent()));
+			root.appendChild(gameName);
 		}
 
-		return _tools.parseToString(document);
+		// root.appendChild(games);
+
+		String reply = _tools.parseToString(document);
+
+		return reply;
 	}
 
 
@@ -213,14 +244,156 @@ public class Xml implements ConstantsDataAccess {
 	 * @param pDocument
 	 *            Xml enviado por el usuario
 	 */
-	private void registerNewGame(Document pDocument) {
+	private String registerNewGame(Document pDocument) {
 		Node root = pDocument.getFirstChild();
-		Node game = root.getChildNodes().item(3);
+		Node game = root.getChildNodes().item(1);
 		Node adopt = _doc.adoptNode(game);
 
 
-		_nodes[XML_NODE_GAMES].appendChild(adopt);
+		_nodes[1].appendChild(adopt);
 		this.saveFile();
+
+		String reply = "1";
+
+		return reply;
+	}
+
+
+
+	/**
+	 * Método que registra dentro del archivo xml del juego el nombre de un
+	 * nuevo jugador
+	 * 
+	 * @param pDocument
+	 *            Xml enviado por el usuario
+	 */
+	private String registerNewPlayer(Document pDocument) {
+		Node root = pDocument.getFirstChild();
+		Node name = root.getChildNodes().item(1);
+		Node adopt = _doc.adoptNode(name);
+
+		_nodes[0].appendChild(adopt);
+		this.saveFile();
+
+		String reply = "1";
+
+		return reply;
+	}
+
+
+
+	private String getGameInfo(Document pDocument) {
+		String gameName = this._tools.getValue(pDocument, "/Request/gameName/text()");
+
+		String creator = this._tools.getValue(_doc, "/PatternRecognizer/Games/Game[name=\""
+				+ gameName + "\"]/creator/text()");
+		String attempts = this._tools.getValue(_doc, "/PatternRecognizer/Games/Game[name=\""
+				+ gameName + "\"]/attempts/text()");
+		String date = this._tools.getValue(_doc, "/PatternRecognizer/Games/Game[name=\"" + gameName
+				+ "\"]/date/text()");
+
+		Document doc = this._tools.createEmptyDoc();
+
+		Element root = doc.createElement("Reply");
+		doc.appendChild(root);
+
+		Element info = doc.createElement("Info");
+
+		Element creatorRE = doc.createElement("creator");
+		creatorRE.appendChild(doc.createTextNode(creator));
+		info.appendChild(creatorRE);
+
+		Element attemptsRE = doc.createElement("attempts");
+		attemptsRE.appendChild(doc.createTextNode(attempts));
+		info.appendChild(attemptsRE);
+
+		Element dateRE = doc.createElement("date");
+		dateRE.appendChild(doc.createTextNode(date));
+		info.appendChild(dateRE);
+
+		root.appendChild(info);
+
+		String reply = this._tools.parseToString(doc);
+
+		return reply;
+	}
+
+
+
+	private String getPlayInfo(Document pDoc) {
+		String gameName = this._tools.getValue(pDoc, "/Request/gameName/text()");
+
+		String pattern = this._tools.getValue(_doc, "/PatternRecognizer/Games/Game[name=\""
+				+ gameName + "\"]/pattern/text()");
+
+		Node Originalexamples = this._tools.getNode(_doc, "/PatternRecognizer/Games/Game[name=\""
+				+ gameName + "\"]/Examples");
+
+
+		Document doc = this._tools.createEmptyDoc();
+		Element root = doc.createElement("Reply");
+		doc.appendChild(root);
+
+		Element playInfo = doc.createElement("PlayInfo");
+
+		Element patternRE = doc.createElement("pattern");
+		patternRE.appendChild(doc.createTextNode(pattern));
+		playInfo.appendChild(patternRE);
+
+		Element examples = doc.createElement("Examples");
+		Element example1 = doc.createElement("example");
+		example1.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(1)
+				.getTextContent()));
+		examples.appendChild(example1);
+
+		Element example2 = doc.createElement("example");
+		example2.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(3)
+				.getTextContent()));
+		examples.appendChild(example2);
+
+		Element example3 = doc.createElement("example");
+		example3.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(5)
+				.getTextContent()));
+		examples.appendChild(example3);
+
+		Element example4 = doc.createElement("example");
+		example4.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(7)
+				.getTextContent()));
+		examples.appendChild(example4);
+
+		Element example5 = doc.createElement("example");
+		example5.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(9)
+				.getTextContent()));
+		examples.appendChild(example5);
+
+		playInfo.appendChild(examples);
+		root.appendChild(playInfo);
+
+		String reply = this._tools.parseToString(doc);
+
+		return reply;
+	}
+
+
+
+	private String registerNewAttempt(Document pDoc) {
+		String gameName = this._tools.getValue(pDoc, "/Request/gameName/text()");
+
+		Node node = this._tools.getNode(_doc, "/PatternRecognizer/Games/Game[name=\"" + gameName
+				+ "\"]/attempts");
+
+		int attempts = Integer.valueOf(node.getTextContent());
+
+		node.setTextContent(String.valueOf(attempts += 1));
+
+		this.saveFile();
+
+		String reply = "1";
+
+		return reply;
+
+
+
 	}
 
 }

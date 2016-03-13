@@ -23,7 +23,7 @@ public class Core implements ConstantsLogic {
 	private static int _port;
 	private static boolean _debug;
 	private static AtomicLong _idCounter;
-	private static final Object _lock = new Object();;
+	private static final Object _lock = new Object();
 
 
 	private Server _server;
@@ -50,8 +50,8 @@ public class Core implements ConstantsLogic {
 		_users = Collections.synchronizedList(new ArrayList<User>());
 		_userCounter = CORE_ZERO;
 
-		// this.startServer();
 		_xml = new Xml(_debug);
+		this.startServer();
 	}
 
 
@@ -128,10 +128,25 @@ public class Core implements ConstantsLogic {
 
 
 
+	private String cleanMessage(String pString) {
+		StringBuilder builder = new StringBuilder();
+
+		for (int i = 0; i < pString.length(); i++) {
+			char c = pString.charAt(i);
+			builder.append(c);
+		}
+
+
+		return builder.toString();
+	}
+
+
+
 	public String parser(String pMessage) {
 
 		synchronized (_lock) {
-			String reply = this._xml.manageMessage(pMessage);
+			String newMessage = this.cleanMessage(pMessage);
+			String reply = this._xml.manageMessage(newMessage);
 
 			if (reply == null) {
 				System.err.println(CORE_CLASS + CORE_NULL_REPLY);

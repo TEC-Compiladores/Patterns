@@ -19,6 +19,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -56,7 +57,7 @@ public class XmlTools implements ConstantsDataAccess {
 
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			flag = false;
-			e.printStackTrace();
+			System.err.println(TOOLS_CLASS + TOOLS_ERROR_PARSE_TO_STRING);
 		}
 
 		if (!flag)
@@ -118,10 +119,31 @@ public class XmlTools implements ConstantsDataAccess {
 		try {
 			XPathExpression expression = xpath.compile(pXPath);
 			value = (String) expression.evaluate(pDocument, XPathConstants.STRING);
+
 		} catch (XPathExpressionException e) {
 			value = null;
 			if (_debug)
-				System.err.println(TOOLS_CLASS + TOOLS_ERROR_XPATH_VALUE + pXPath);
+				System.err.println(TOOLS_CLASS + TOOLS_ERROR_XPATH_VALUE);
+		}
+
+		return value;
+	}
+
+
+
+	public Node getNode(Document pDocument, String pXPath) {
+		XPathFactory factory = XPathFactory.newInstance();
+		XPath xpath = factory.newXPath();
+		Node value = null;
+
+		try {
+			XPathExpression expression = xpath.compile(pXPath);
+			value = (Node) expression.evaluate(pDocument, XPathConstants.NODE);
+
+		} catch (XPathExpressionException e) {
+			value = null;
+			if (_debug)
+				System.err.println(TOOLS_CLASS + TOOLS_ERROR_XPATH_VALUE);
 		}
 
 		return value;

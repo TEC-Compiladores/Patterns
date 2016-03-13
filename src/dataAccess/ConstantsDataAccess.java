@@ -23,7 +23,7 @@ public interface ConstantsDataAccess {
 
 	public static final String XML_PATH = XML_FILE_FOR_PATH.getAbsolutePath();
 	public static final String XML_FILE_NAME = "/Game.xml";
-	public static final String XML_XPATH_MESSAGE = "/Request/messsage/text()";
+	public static final String XML_XPATH_MESSAGE = "/Request/message/text()";
 	public static final String XML_INDENT_PROPERTY = "yes";
 	public static final String XML_METHOD_PROPERTY = "xml";
 	public static final String XML_ENCODING_PROPERTY = "UTF-8";
@@ -36,7 +36,8 @@ public interface ConstantsDataAccess {
 	public static final String XML_NAME_NODE_SCORES = "Scores";
 	public static final String XML_REQUEST_GAMELIST = "GameList";
 	public static final String XML_REGISER_NEWGAME = "NewGame";
-	public static final String XML_XPATH_GAME_NAMES = "/PatternRecognizer/Games/game/name/text()";
+	public static final String XML_REGISTER_NEWPLAYER = "NewPlayer";
+	public static final String XML_XPATH_GAME_NAMES = "/PatternRecognizer/Games/Game/name";
 	public static final String XML_REPLY_ROOT = "Reply";
 	public static final String XML_REPLY_ACTIVEGAMES_NODE = "ActiveGames";
 	public static final String XML_REPLY_GAME_NODE = "game";
@@ -52,6 +53,7 @@ public interface ConstantsDataAccess {
 	// ERROR
 	public static final String TOOLS_ERROR_XPATH_VALUE = "Error en expresión al obtener un valor del xml. Expresion: ";
 	public static final String TOOLS_ERROR_PARSE_TO_DOC = "Error al convertir un documento a string";
+	public static final String TOOLS_ERROR_PARSE_TO_STRING = "Error al convertir un string a documento";
 	public static final String TOOLS_ERROR_XPATH_VALUE_LIST = "Error en expresión al obtener una lista de valores. Expresión: ";
 	public static final String TOOLS_ERROR_NEW_EMPTY_DOC = "Error al crear un documento xml vacío";
 
