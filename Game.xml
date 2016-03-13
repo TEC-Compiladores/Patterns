@@ -32,6 +32,14 @@
     <name>Name</name>
     <name>Name</name>
     <name>Name</name>
+    <name>Name</name>
+    <name>Juan Pablo</name>
+    <name>Name</name>
+    <name>Name</name>
+    <name>Name</name>
+    <name>Name</name>
+    <name>Name</name>
+    <name>Name</name>
     </Users>
     <Games>
         <Game>
@@ -102,6 +110,34 @@
                 <example>GSJJC</example>
                 <example>GSJJC</example>
                 <example>GSJJC</example>
+            </Examples>
+        </Game>
+    <Game>
+            <name>Game1</name>
+            <creator>Pablo</creator>
+            <date>1457889387585</date>
+            <attempts>4</attempts>
+            <pattern>[a-z]</pattern>
+            <Examples>
+                <example>c</example>
+                <example>y</example>
+                <example>f</example>
+                <example>i</example>
+                <example>f</example>
+            </Examples>
+        </Game>
+    <Game>
+            <name>Game2</name>
+            <creator>Juan</creator>
+            <date>1457889514067</date>
+            <attempts>1</attempts>
+            <pattern>[a-zA-Z]</pattern>
+            <Examples>
+                <example>y</example>
+                <example>D</example>
+                <example>s</example>
+                <example>U</example>
+                <example>X</example>
             </Examples>
         </Game>
     </Games>
