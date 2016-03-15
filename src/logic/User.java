@@ -121,7 +121,7 @@ public class User implements Runnable, ConstantsLogic {
 					else {
 						System.out.println("ENTRANTE: " + _message);
 						String reply = _core.parser(_message);
-						System.out.println("RESPUESTA A GERALD!!!!!: " + reply);
+						System.out.println("RESPUESTA: " + reply);
 						// Se envian las respuestas al usuario
 						_output.writeUTF(reply);
 						_message = "";

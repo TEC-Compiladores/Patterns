@@ -145,8 +145,8 @@ public class Core implements ConstantsLogic {
 	public String parser(String pMessage) {
 
 		synchronized (_lock) {
-			String newMessage = this.cleanMessage(pMessage);
-			String reply = this._xml.manageMessage(newMessage);
+			// String newMessage = this.cleanMessage(pMessage);
+			String reply = this._xml.manageMessage(pMessage);
 
 			if (reply == null) {
 				System.err.println(CORE_CLASS + CORE_NULL_REPLY);

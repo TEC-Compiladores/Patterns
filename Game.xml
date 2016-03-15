@@ -1,143 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <PatternRecognizer>
     <Users>
-        <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-        <name>Name</name>
-    <name>Name</name>
-        <name>Name</name>
-        <name>Name</name>
-    <name>Fulano</name>
-        <name>Name</name>
-    <name>Name</name>
-        <name>Name</name>
-        <name>Name</name>
-    <name>Name</name>
-        <name>Name</name>
-        <name>Name</name>
-    <name>Juanpi</name>
-        <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-        <name>Name</name>
-        <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Juan Pablo</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
-    <name>Name</name>
+        <name>Pablo</name>
+    <name>Pablo</name>
+    <name/>
     </Users>
     <Games>
         <Game>
-            <name>Game Name</name>
-            <creator>Creator</creator>
-            <date>1457883162278</date>
+            <name>grueso</name>
+            <creator>pene</creator>
+            <date>1458035065598</date>
             <attempts>0</attempts>
-            <pattern>1(A|B)+</pattern>
+            <pattern>[A-F]*[1-9]*</pattern>
+            <alphabet>0123456789ABCDEFabcdef</alphabet>
             <Examples>
-               <example>1A</example>
-               <example>1A</example>
-               <example>1BAA</example>
-               <example>1B</example>
-               <example>1B</example>
+                <example>CF38</example>
+                <example>587</example>
+                <example>B46</example>
+                <example>2833</example>
+                <example>DD136</example>
             </Examples>
         </Game>
     <Game>
-            <name>Arepa</name>
-            <creator>Gerald</creator>
-            <date>1457885681466</date>
-            <attempts>10</attempts>
-            <pattern>1(2|3*)*9</pattern>
-            <Examples>
-                <example>139</example>
-                <example>1322233229</example>
-                <example>13239</example>
-                <example>132322239</example>
-                <example>1239</example>
-            </Examples>
-        </Game>
-    <Game>
-            <name>Empanada</name>
+            <name>Test</name>
             <creator>Pablo</creator>
-            <date>1457886168763</date>
-            <attempts>10</attempts>
-            <pattern>112(X|Z*)+</pattern>
-            <Examples>
-                <example>112ZXXZ</example>
-                <example>112XX</example>
-                <example>112XXXXX</example>
-                <example>112ZZZXXZXXXZXXZX</example>
-                <example>112ZXZXZ</example>
-            </Examples>
-        </Game>
-    <Game>
-            <name>lalaña</name>
-            <creator>pepin</creator>
-            <date>1457886668951</date>
-            <attempts>0</attempts>
-            <pattern>(A|B+)*</pattern>
-            <Examples>
-                <example>AAA</example>
-                <example>AAAB</example>
-                <example>A</example>
-                <example>AA</example>
-                <example>AB</example>
-            </Examples>
-        </Game>
-    <Game>
-            <name>soy gey</name>
-            <creator>Motherfucking</creator>
-            <date>1457888405603</date>
+            <date>1458037283669</date>
             <attempts>5</attempts>
-            <pattern>GSJJC</pattern>
+            <pattern>[A-Z]A(AA+|D*)+</pattern>
+            <alphabet>QWERTYUIOPASDFGHJKLÑZXCVBNM</alphabet>
             <Examples>
-                <example>GSJJC</example>
-                <example>GSJJC</example>
-                <example>GSJJC</example>
-                <example>GSJJC</example>
-                <example>GSJJC</example>
-            </Examples>
-        </Game>
-    <Game>
-            <name>Game1</name>
-            <creator>Pablo</creator>
-            <date>1457889387585</date>
-            <attempts>4</attempts>
-            <pattern>[a-z]</pattern>
-            <Examples>
-                <example>c</example>
-                <example>y</example>
-                <example>f</example>
-                <example>i</example>
-                <example>f</example>
-            </Examples>
-        </Game>
-    <Game>
-            <name>Game2</name>
-            <creator>Juan</creator>
-            <date>1457889514067</date>
-            <attempts>1</attempts>
-            <pattern>[a-zA-Z]</pattern>
-            <Examples>
-                <example>y</example>
-                <example>D</example>
-                <example>s</example>
-                <example>U</example>
-                <example>X</example>
+                <example>VAAADAAAADD</example>
+                <example>YADDAADAAADDAAD</example>
+                <example>FAAAAAAAAD</example>
+                <example>SADDDAADDDDAA</example>
+                <example>HADAADAAAD</example>
             </Examples>
         </Game>
     </Games>

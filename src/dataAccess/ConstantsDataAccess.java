@@ -11,12 +11,14 @@ public interface ConstantsDataAccess {
 	// ERROR
 	public static final String XML_ERROR_LOAD_FILE = "Error al cargar el archivo xml";
 	public static final String XML_ERROR_SAVE_FILE = "Error al guardar el archivo xml";
+	public static final String XML_ERROR_INCORRECT_FORMAT = "Se recibio un mensaje incorrecto";
 
 	// NOTIFICATIONS
 	public static final String XML_FILE_FOUND = "Se encontro un archivo xml de juego";
 	public static final String XML_FILE_NOT_FOUND = "No se encontro un archivo xml de juego";
 	public static final String XML_SUCCESSFUL_LOAD = "Archivo xml cargado con éxito";
 	public static final String XML_SUCCESSFUL_CREATED = "Archivo xml creado con éxito";
+	public static final String XML_UNKNOW_MESSAGE = "Mensaje desconocido";
 
 	//
 	public static final File XML_FILE_FOR_PATH = new File("");
@@ -35,8 +37,12 @@ public interface ConstantsDataAccess {
 	public static final String XML_NAME_NODE_GAMES = "Games";
 	public static final String XML_NAME_NODE_SCORES = "Scores";
 	public static final String XML_REQUEST_GAMELIST = "GameList";
-	public static final String XML_REGISER_NEWGAME = "NewGame";
+	public static final String XML_REQUEST_GAMEINFO = "GameInfo";
+	public static final String XML_REQUEST_PLAYINFO = "PlayInfo";
+	public static final String XML_REGISTER_NEWGAME = "NewGame";
 	public static final String XML_REGISTER_NEWPLAYER = "NewPlayer";
+	public static final String XML_REGISTER_NEWATTEMPT = "NewAttempt";
+	public static final String XML_REGISTER_GAMEWIN = "GameWin";
 	public static final String XML_XPATH_GAME_NAMES = "/PatternRecognizer/Games/Game/name";
 	public static final String XML_REPLY_ROOT = "Reply";
 	public static final String XML_REPLY_ACTIVEGAMES_NODE = "ActiveGames";

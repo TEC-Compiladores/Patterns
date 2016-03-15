@@ -161,11 +161,19 @@ public class Xml implements ConstantsDataAccess {
 
 
 
+	/**
+	 * Método que maneja la información recibida por parte de los usuarios y
+	 * realiza las peticiones
+	 * 
+	 * @param pMessage
+	 *            Mensaje enviado por el usuario
+	 * @return Respuesta a la petición del usuario
+	 */
 	public String manageMessage(String pMessage) {
 
 		Document doc = this._tools.parseToDocument(pMessage);
 		if (doc == null) {
-			System.err.println(XML_CLASS + "Se recibio un mensaje incorrecto");
+			System.err.println(XML_CLASS + XML_ERROR_INCORRECT_FORMAT);
 			return null;
 		}
 
@@ -176,23 +184,26 @@ public class Xml implements ConstantsDataAccess {
 		if (message.equals(XML_REQUEST_GAMELIST)) {
 			reply = this.getListOfGames();
 		}
-		else if (message.equals(XML_REGISER_NEWGAME)) {
+		else if (message.equals(XML_REGISTER_NEWGAME)) {
 			reply = this.registerNewGame(doc);
 		}
 		else if (message.equals(XML_REGISTER_NEWPLAYER)) {
 			reply = this.registerNewPlayer(doc);
 		}
-		else if (message.equals("GameInfo")) {
+		else if (message.equals(XML_REQUEST_GAMEINFO)) {
 			reply = this.getGameInfo(doc);
 		}
-		else if (message.equals("PlayInfo")) {
+		else if (message.equals(XML_REQUEST_PLAYINFO)) {
 			reply = this.getPlayInfo(doc);
 		}
-		else if (message.equals("NewAttempt")) {
+		else if (message.equals(XML_REGISTER_NEWATTEMPT)) {
 			reply = this.registerNewAttempt(doc);
 		}
+		else if (message.equals(XML_REGISTER_GAMEWIN)) {
+			reply = this.registerGameWin(doc);
+		}
 		else
-			System.out.println("Mensaje desconocido");
+			System.out.println(XML_UNKNOW_MESSAGE);
 
 		return reply;
 	}
@@ -282,6 +293,14 @@ public class Xml implements ConstantsDataAccess {
 
 
 
+	/**
+	 * Método que permite obtener la información de un juego como petición de un
+	 * usuario
+	 * 
+	 * @param pDocument
+	 *            Xml enviado por el usuario
+	 * @return Respuesta al usuario con la información del juego
+	 */
 	private String getGameInfo(Document pDocument) {
 		String gameName = this._tools.getValue(pDocument, "/Request/gameName/text()");
 
@@ -320,6 +339,14 @@ public class Xml implements ConstantsDataAccess {
 
 
 
+	/**
+	 * Método que obiene la información necesario para jugar una partida(patron
+	 * y ejemplos) como petición de un usuario
+	 * 
+	 * @param pDoc
+	 *            Xml enviado por el usuario
+	 * @return Respuesta con la información del juego para el usuario
+	 */
 	private String getPlayInfo(Document pDoc) {
 		String gameName = this._tools.getValue(pDoc, "/Request/gameName/text()");
 
@@ -376,6 +403,14 @@ public class Xml implements ConstantsDataAccess {
 
 
 
+	/**
+	 * Método que registra un nuevo intento de solución de un juego, aumento el
+	 * contador de intentos correspondiente al juego dentro del archivo xml
+	 * 
+	 * @param pDoc
+	 *            Xml enviando por el usuario
+	 * @return Respuesta al usuario
+	 */
 	private String registerNewAttempt(Document pDoc) {
 		String gameName = this._tools.getValue(pDoc, "/Request/gameName/text()");
 
@@ -391,9 +426,30 @@ public class Xml implements ConstantsDataAccess {
 		String reply = "1";
 
 		return reply;
+	}
 
 
 
+	/**
+	 * Método que registra que un juego a sido ganado, eliminando el nodo que
+	 * contiene la información del juego del archivo xml, de modo que ya no este
+	 * disponible para los demás usuarios
+	 * 
+	 * @param pDoc
+	 *            Xml enviado por el usuario
+	 * @return Respuesta al usuario
+	 */
+	public String registerGameWin(Document pDoc) {
+		String gameName = this._tools.getValue(pDoc, "/Request/gameName/text()");
+
+		Node node = this._tools.getNode(_doc, "PatternRecognizer/Games/Game[name=\"" + gameName
+				+ "\"]");
+
+		this._nodes[1].removeChild(node);
+
+		String reply = "1";
+
+		return reply;
 	}
 
 }
