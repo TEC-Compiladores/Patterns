@@ -82,7 +82,7 @@ public class User implements Runnable, ConstantsLogic {
 
 
 
-	private void killUser() {
+	public void killUser() {
 
 		try {
 			_socket.close();

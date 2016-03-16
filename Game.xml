@@ -3,39 +3,12 @@
     <Users>
         <name>Pablo</name>
     <name>Pablo</name>
-    <name/>
+    <name>Pablo</name>
+    <name>Pablo</name>
+    <name>Pablo</name>
     </Users>
     <Games>
-        <Game>
-            <name>grueso</name>
-            <creator>pene</creator>
-            <date>1458035065598</date>
-            <attempts>0</attempts>
-            <pattern>[A-F]*[1-9]*</pattern>
-            <alphabet>0123456789ABCDEFabcdef</alphabet>
-            <Examples>
-                <example>CF38</example>
-                <example>587</example>
-                <example>B46</example>
-                <example>2833</example>
-                <example>DD136</example>
-            </Examples>
-        </Game>
-    <Game>
-            <name>Test</name>
-            <creator>Pablo</creator>
-            <date>1458037283669</date>
-            <attempts>5</attempts>
-            <pattern>[A-Z]A(AA+|D*)+</pattern>
-            <alphabet>QWERTYUIOPASDFGHJKLÑZXCVBNM</alphabet>
-            <Examples>
-                <example>VAAADAAAADD</example>
-                <example>YADDAADAAADDAAD</example>
-                <example>FAAAAAAAAD</example>
-                <example>SADDDAADDDDAA</example>
-                <example>HADAADAAAD</example>
-            </Examples>
-        </Game>
+        
     </Games>
     <Scores/>
 </PatternRecognizer>

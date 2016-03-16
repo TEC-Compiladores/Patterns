@@ -3,6 +3,7 @@ package logic.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 import logic.Core;
@@ -56,16 +57,25 @@ public class Server implements Runnable, ConstantsServer {
 	/**
 	 * Método que detiene el thread
 	 */
-	public synchronized void stopServer() {
+	public void stopServer() {
 		_running = false;
 
 		try {
-			_thread.join();
-		} catch (InterruptedException e) {
-			if (_debug)
-				System.err.println(SERVER_CLASS + SERVER_ERROR_STOP_THREAD);
+			_socket.close();
+			_serverSocket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+
+		// try {
+		// _thread.join();
+		// } catch (InterruptedException e) {
+		// if (_debug)
+		// System.err.println(SERVER_CLASS + SERVER_ERROR_STOP_THREAD);
+		// e.printStackTrace();
+		// }
 	}
 
 
@@ -125,12 +135,16 @@ public class Server implements Runnable, ConstantsServer {
 					System.out.println(SERVER_CLASS + SERVER_SUCCESSFUL_CONNECTION);
 				_core.newUser(_socket);
 			}
+
 			_serverSocket.close();
 			_socket.close();
-		} catch (Exception e) {
+			return;
+		} catch (SocketException e) {
+			if (_debug)
+				System.err.println(SERVER_CLASS + "Se cerro el servidor");
+		} catch (IOException e) {
 			if (_debug)
 				System.err.println(SERVER_CLASS + SERVER_ERROR_IN_THREAD);
-			e.printStackTrace();
 		}
 	}
 

@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicLong;
 
+import logic.server.Arduino;
 import logic.server.Server;
 import dataAccess.Xml;
 
@@ -18,18 +20,22 @@ import dataAccess.Xml;
  *         Clase principal del programa
  *
  */
-public class Core implements ConstantsLogic {
+public class Core implements Runnable, ConstantsLogic {
 
 	private static int _port;
 	private static boolean _debug;
+	private volatile boolean _running;
+	private int _userCounter;
 	private static AtomicLong _idCounter;
 	private static final Object _lock = new Object();
 
 
+	private Thread _thread;
 	private Server _server;
+	private Arduino _arduino;
 	private Xml _xml;
 	private List<User> _users;
-	private int _userCounter;
+
 
 
 
@@ -50,8 +56,11 @@ public class Core implements ConstantsLogic {
 		_users = Collections.synchronizedList(new ArrayList<User>());
 		_userCounter = CORE_ZERO;
 
-		_xml = new Xml(_debug);
+		_xml = new Xml(this, _debug);
+		this._arduino = new Arduino();
+		_arduino.connect("", 80);
 		this.startServer();
+		this.startThread();
 	}
 
 
@@ -128,17 +137,23 @@ public class Core implements ConstantsLogic {
 
 
 
-	private String cleanMessage(String pString) {
-		StringBuilder builder = new StringBuilder();
-
-		for (int i = 0; i < pString.length(); i++) {
-			char c = pString.charAt(i);
-			builder.append(c);
-		}
-
-
-		return builder.toString();
+	public void notifyArduino(String pString) {
+		_arduino.sendMessage(pString);
 	}
+
+
+
+	// private String cleanMessage(String pString) {
+	// StringBuilder builder = new StringBuilder();
+	//
+	// for (int i = 0; i < pString.length(); i++) {
+	// char c = pString.charAt(i);
+	// builder.append(c);
+	// }
+	//
+	//
+	// return builder.toString();
+	// }
 
 
 
@@ -154,6 +169,72 @@ public class Core implements ConstantsLogic {
 			return reply;
 
 		}
+	}
+
+
+
+	private void closeServer() {
+		this._server.stopServer();
+
+
+		Iterator<User> iterator = _users.iterator();
+		for (int index = 0; index < _users.size(); index++) {
+			iterator.next().killUser();
+		}
+
+		this.stopThread();
+
+		System.out.println("$$$$$$");
+	}
+
+
+
+
+
+	/**
+	 * Método que inicia el thread
+	 */
+	public void startThread() {
+		_running = true;
+
+		_thread = new Thread(this, "Core");
+		_thread.start();
+	}
+
+
+
+	/**
+	 * Método que detiene el thread
+	 */
+	public synchronized void stopThread() {
+		_running = false;
+
+		// try {
+		// _thread.join();
+		// } catch (InterruptedException e) {
+		// if (_debug)
+		// System.err.println(CORE_CLASS +
+		// "Error al detener el thread en core");
+		// e.printStackTrace();
+		// }
+	}
+
+
+
+	@Override
+	public void run() {
+		Scanner scan = new Scanner(System.in);
+
+		while (_running) {
+			String s = scan.next();
+			if (s.equals("exit")) {
+				System.out.println("SALIR DEL PROGRAMA");
+				// this.closeServer();
+			}
+
+		}
+
+
 	}
 
 

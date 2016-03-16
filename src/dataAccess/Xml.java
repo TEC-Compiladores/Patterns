@@ -15,6 +15,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
+import logic.Core;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -32,15 +34,17 @@ public class Xml implements ConstantsDataAccess {
 	private boolean _debug;
 
 	private XmlTools _tools;
+	private Core _core;
 
 
 
-	public Xml(boolean pDebug) {
+	public Xml(Core pCore, boolean pDebug) {
 		_docFactory = DocumentBuilderFactory.newInstance();
 		_docFactory.setNamespaceAware(true);
 		_xpathFactory = XPathFactory.newInstance();
 		_xpath = _xpathFactory.newXPath();
 		_debug = pDebug;
+		_core = pCore;
 		_tools = new XmlTools(_debug);
 
 		this.checkFile();
@@ -157,6 +161,21 @@ public class Xml implements ConstantsDataAccess {
 		this._nodes = null;
 		this.loadFile();
 
+	}
+
+
+
+	/**
+	 * Método que elimina todos los usuarios del xml al cerrar el servidor
+	 */
+	public void deleteUsers() {
+		NodeList users = _nodes[0].getChildNodes();
+
+		for (int i = 0; i < users.getLength(); i++) {
+			_nodes[0].removeChild(users.item(i));
+		}
+
+		this.saveFile();
 	}
 
 
@@ -441,6 +460,8 @@ public class Xml implements ConstantsDataAccess {
 	 */
 	public String registerGameWin(Document pDoc) {
 		String gameName = this._tools.getValue(pDoc, "/Request/gameName/text()");
+
+		_core.notifyArduino("1" + gameName);
 
 		Node node = this._tools.getNode(_doc, "PatternRecognizer/Games/Game[name=\"" + gameName
 				+ "\"]");
