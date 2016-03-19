@@ -31,6 +31,11 @@ public class XmlTools implements ConstantsDataAccess {
 
 
 
+	/**
+	 * Constructor de la clase
+	 * 
+	 * @param pDebug
+	 */
 	public XmlTools(boolean pDebug) {
 		_debug = pDebug;
 	}
@@ -131,6 +136,15 @@ public class XmlTools implements ConstantsDataAccess {
 
 
 
+	/**
+	 * Método que obtiene un nodo de un xml usando XPath
+	 * 
+	 * @param pDocument
+	 *            Documento con el xml
+	 * @param pXPath
+	 *            Ubicación dentro del xml de nodo
+	 * @return Nodo del xml
+	 */
 	public Node getNode(Document pDocument, String pXPath) {
 		XPathFactory factory = XPathFactory.newInstance();
 		XPath xpath = factory.newXPath();

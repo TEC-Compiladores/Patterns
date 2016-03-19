@@ -2,13 +2,101 @@
 <PatternRecognizer>
     <Users>
         <name>Pablo</name>
+    <name>Sebas</name>
+    <name>Pablo</name>
+    <name>dds</name>
+    <name>daniel</name>
+    <name/>
+    <name>slayer1</name>
+    <name>player2</name>
+    <name/>
+    <name>fff</name>
+    <name>lola</name>
+    <name>gusano</name>
+    <name>gusano s</name>
+    <name>.I.</name>
+    <name>Pablo</name>
+    <name>pp</name>
+    <name>pn</name>
+    <name>Juan se la cone</name>
+    <name>ediondo</name>
+    <name>japi</name>
+    <name>hpppp</name>
+    <name>juan</name>
+    <name>Pablo</name>
+    <name>Gerald</name>
+    <name>Peppa</name>
+    <name>Vaio</name>
+    <name>Tec</name>
+    <name>Cerda</name>
+    <name>Mía Khalifa</name>
+    <name>Peppa pig</name>
+    <name>Mia Khalifa</name>
+    <name>Gerald playo</name>
+    <name>Gerald playo</name>
+    <name>La cerda</name>
+    <name>Juan Pablo</name>
     <name>Pablo</name>
     <name>Pablo</name>
+    <name>hfch</name>
+    <name>pablo</name>
+    <name>ghhg</name>
+    <name>hola</name>
+    <name>peppa</name>
     <name>Pablo</name>
+    <name>yy</name>
+    <name>dick</name>
+    <name>dick</name>
+    <name>juan</name>
+    <name>gg</name>
+    <name>yy</name>
+    <name>rr</name>
+    <name>gerald</name>
+    <name>92nd parado</name>
     <name>Pablo</name>
+    <name>Pablo Brenes</name>
+    <name>slayer</name>
+    <name>hola hola</name>
+    <name>hola hola</name>
+    <name>slayer</name>
+    <name>Gerald se la come toda</name>
+    <name>yy</name>
+    <name>Slayer</name>
+    <name>perra</name>
     </Users>
     <Games>
         
+    
+    <Game>
+            <name>BigCola</name>
+            <creator>Gery</creator>
+            <date>1458284829306</date>
+            <attempts>32</attempts>
+            <pattern>B*</pattern>
+            <alphabet>10</alphabet>
+            <Examples>
+                <example>BB</example>
+                <example>BB</example>
+                <example>BB</example>
+                <example>BBB</example>
+                <example>B</example>
+            </Examples>
+        </Game>
+    <Game>
+            <name>Game test</name>
+            <creator>Pablo</creator>
+            <date>1458286258648</date>
+            <attempts>21</attempts>
+            <pattern>1*</pattern>
+            <alphabet>10</alphabet>
+            <Examples>
+                <example>1</example>
+                <example>111</example>
+                <example>11</example>
+                <example>11</example>
+                <example>111</example>
+            </Examples>
+        </Game>
     </Games>
     <Scores/>
 </PatternRecognizer>

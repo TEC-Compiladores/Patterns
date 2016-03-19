@@ -26,6 +26,8 @@ public interface ConstantsDataAccess {
 	public static final String XML_PATH = XML_FILE_FOR_PATH.getAbsolutePath();
 	public static final String XML_FILE_NAME = "/Game.xml";
 	public static final String XML_XPATH_MESSAGE = "/Request/message/text()";
+	public static final String XML_XPATH_GAMENAME = "/Request/gameName/text()";
+	public static final String XML_XPATH_USERNAME = "/Request/userName/text()";
 	public static final String XML_INDENT_PROPERTY = "yes";
 	public static final String XML_METHOD_PROPERTY = "xml";
 	public static final String XML_ENCODING_PROPERTY = "UTF-8";
@@ -36,6 +38,7 @@ public interface ConstantsDataAccess {
 	public static final String XML_NAME_NODE_USERS = "Users";
 	public static final String XML_NAME_NODE_GAMES = "Games";
 	public static final String XML_NAME_NODE_SCORES = "Scores";
+	public static final String XML_NAME_NODE_EXAMPLE = "example";
 	public static final String XML_REQUEST_GAMELIST = "GameList";
 	public static final String XML_REQUEST_GAMEINFO = "GameInfo";
 	public static final String XML_REQUEST_PLAYINFO = "PlayInfo";
@@ -43,10 +46,17 @@ public interface ConstantsDataAccess {
 	public static final String XML_REGISTER_NEWPLAYER = "NewPlayer";
 	public static final String XML_REGISTER_NEWATTEMPT = "NewAttempt";
 	public static final String XML_REGISTER_GAMEWIN = "GameWin";
+	public static final String XML_REGISTER_GAMELOST = "GameLost";
+	public static final String XML_REGISTER_STARTGAME = "GameStart";
 	public static final String XML_XPATH_GAME_NAMES = "/PatternRecognizer/Games/Game/name";
 	public static final String XML_REPLY_ROOT = "Reply";
 	public static final String XML_REPLY_ACTIVEGAMES_NODE = "ActiveGames";
 	public static final String XML_REPLY_GAME_NODE = "game";
+	public static final String XML_EMPTY_REPLY = "1";
+	public static final String XML_MESSAGE_GAME_LOST = " lost. Luck for the next game!!";
+	public static final String XML_MESSAGE_GAME_WIN = " win the game ";
+	public static final String XML_ARDUINO_CODE_GAMELOST = "2";
+	public static final String XML_ARDUINO_CODE_GAMEWIN = "1";
 
 	public static final int XML_NODE_USERS = 1;
 	public static final int XML_NODE_GAMES = 3;

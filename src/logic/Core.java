@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicLong;
 
 import logic.server.Arduino;
@@ -20,7 +19,7 @@ import dataAccess.Xml;
  *         Clase principal del programa
  *
  */
-public class Core implements Runnable, ConstantsLogic {
+public class Core implements ConstantsLogic {
 
 	private static int _port;
 	private static boolean _debug;
@@ -42,13 +41,13 @@ public class Core implements Runnable, ConstantsLogic {
 	/**
 	 * Constructor de la clase
 	 * 
-	 * @param pPort
+	 * @param pPortServer
 	 *            Puerto que abrira el servidor
 	 * @param pDebug
 	 *            Indica si se quiere información de debug
 	 */
-	public Core(int pPort, boolean pDebug) {
-		_port = pPort;
+	public Core(int pPortServer, String pIpArduino, int pPortArduino, boolean pDebug) {
+		_port = pPortServer;
 		_debug = pDebug;
 		_idCounter = new AtomicLong();
 
@@ -57,10 +56,9 @@ public class Core implements Runnable, ConstantsLogic {
 		_userCounter = CORE_ZERO;
 
 		_xml = new Xml(this, _debug);
-		this._arduino = new Arduino();
-		_arduino.connect("", 80);
+		this._arduino = new Arduino(_debug);
+		_arduino.connect(pIpArduino, pPortArduino);
 		this.startServer();
-		this.startThread();
 	}
 
 
@@ -137,30 +135,31 @@ public class Core implements Runnable, ConstantsLogic {
 
 
 
+	/**
+	 * Método que envia un mensaje al usuario notificando algun evento del
+	 * programa
+	 * 
+	 * @param pString
+	 *            Mensaje para el arduino
+	 */
 	public void notifyArduino(String pString) {
 		_arduino.sendMessage(pString);
 	}
 
 
 
-	// private String cleanMessage(String pString) {
-	// StringBuilder builder = new StringBuilder();
-	//
-	// for (int i = 0; i < pString.length(); i++) {
-	// char c = pString.charAt(i);
-	// builder.append(c);
-	// }
-	//
-	//
-	// return builder.toString();
-	// }
 
-
-
+	/**
+	 * Método que recibe los mensaje de servidor y los envia a la clase xml,
+	 * para que procese los mensajes y genere la respuesta al usuario
+	 * 
+	 * @param pMessage
+	 *            Mensaje recibo por el servidor
+	 * @return Respuesta al usuario
+	 */
 	public String parser(String pMessage) {
 
 		synchronized (_lock) {
-			// String newMessage = this.cleanMessage(pMessage);
 			String reply = this._xml.manageMessage(pMessage);
 
 			if (reply == null) {
@@ -173,69 +172,53 @@ public class Core implements Runnable, ConstantsLogic {
 
 
 
-	private void closeServer() {
-		this._server.stopServer();
 
 
-		Iterator<User> iterator = _users.iterator();
-		for (int index = 0; index < _users.size(); index++) {
-			iterator.next().killUser();
-		}
-
-		this.stopThread();
-
-		System.out.println("$$$$$$");
-	}
-
-
-
-
-
-	/**
-	 * Método que inicia el thread
-	 */
-	public void startThread() {
-		_running = true;
-
-		_thread = new Thread(this, "Core");
-		_thread.start();
-	}
-
-
-
-	/**
-	 * Método que detiene el thread
-	 */
-	public synchronized void stopThread() {
-		_running = false;
-
-		// try {
-		// _thread.join();
-		// } catch (InterruptedException e) {
-		// if (_debug)
-		// System.err.println(CORE_CLASS +
-		// "Error al detener el thread en core");
-		// e.printStackTrace();
-		// }
-	}
+	// /**
+	// * Método que inicia el thread
+	// */
+	// public void startThread() {
+	// _running = true;
+	//
+	// _thread = new Thread(this, "Core");
+	// _thread.start();
+	// }
+	//
+	//
+	//
+	// /**
+	// * Método que detiene el thread
+	// */
+	// public synchronized void stopThread() {
+	// _running = false;
+	//
+	// // try {
+	// // _thread.join();
+	// // } catch (InterruptedException e) {
+	// // if (_debug)
+	// // System.err.println(CORE_CLASS +
+	// // "Error al detener el thread en core");
+	// // e.printStackTrace();
+	// // }
+	// }
 
 
 
-	@Override
-	public void run() {
-		Scanner scan = new Scanner(System.in);
-
-		while (_running) {
-			String s = scan.next();
-			if (s.equals("exit")) {
-				System.out.println("SALIR DEL PROGRAMA");
-				// this.closeServer();
-			}
-
-		}
-
-
-	}
+	// @Override
+	// public void run() {
+	// Scanner scan = new Scanner(System.in);
+	//
+	// while (_running) {
+	// String s = scan.next();
+	// if (s.equals("exit")) {
+	// System.out.println("SALIR DEL PROGRAMA");
+	// // this.closeServer();
+	// }
+	//
+	// }
+	//
+	//
+	// }
 
 
 }

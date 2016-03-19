@@ -1,23 +1,31 @@
 package logic.server;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 
-public class Arduino {
+public class Arduino implements ConstantsServer {
 
 	private String _ip;
 	private int _port;
 	private Socket _socket;
-	private DataOutputStream _outComing;
-	boolean _connected;
+	private PrintWriter _out;
+	private boolean _connected;
+	boolean _debug;
 
 
 
-	public Arduino() {
-		_connected = false;
+	/**
+	 * 
+	 * Constructor de la clase
+	 * 
+	 * @param pDebug
+	 */
+	public Arduino(boolean pDebug) {
+		this._connected = false;
+		_debug = pDebug;
 	}
 
 
@@ -37,12 +45,18 @@ public class Arduino {
 
 		try {
 			_socket = new Socket(_ip, _port);
-			_connected = true;
-			_outComing = new DataOutputStream(_socket.getOutputStream());
+			this._connected = true;
+			_out = new PrintWriter(_socket.getOutputStream(), true);
+			_out.println("3Test");
+			if (_debug)
+				System.out.println(ARDUINO_CLASS + ARDUINO_SUCCESSFUL_CONNECTION);
+
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			if (_debug)
+				System.err.println(ARDUINO_CLASS + ARDUINO_ERROR_CONNECTION);
 		} catch (IOException e) {
-			e.printStackTrace();
+			if (_debug)
+				System.err.println(ARDUINO_CLASS + ARDUINO_ERROR_IO);
 		}
 
 		return _connected;
@@ -57,14 +71,10 @@ public class Arduino {
 	 *            Mensaje a enviar
 	 */
 	public void sendMessage(String pMessage) {
-		if (_connected) {
-			try {
-				_outComing.writeUTF(pMessage);
-				_outComing.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if (this._connected) {
+			if (_debug)
+				System.out.println(ARDUINO_CLASS + ARDUINO_MESSAGE_SEND + pMessage);
+			_out.println(pMessage);
 		}
 	}
-
 }

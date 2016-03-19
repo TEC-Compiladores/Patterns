@@ -221,6 +221,12 @@ public class Xml implements ConstantsDataAccess {
 		else if (message.equals(XML_REGISTER_GAMEWIN)) {
 			reply = this.registerGameWin(doc);
 		}
+		else if (message.equals(XML_REGISTER_GAMELOST)) {
+			reply = this.registerGameLost(doc);
+		}
+		else if (message.equals(XML_REGISTER_STARTGAME)) {
+			reply = this.notifyGameStart(doc);
+		}
 		else
 			System.out.println(XML_UNKNOW_MESSAGE);
 
@@ -283,7 +289,7 @@ public class Xml implements ConstantsDataAccess {
 		_nodes[1].appendChild(adopt);
 		this.saveFile();
 
-		String reply = "1";
+		String reply = XML_EMPTY_REPLY;
 
 		return reply;
 	}
@@ -305,7 +311,7 @@ public class Xml implements ConstantsDataAccess {
 		_nodes[0].appendChild(adopt);
 		this.saveFile();
 
-		String reply = "1";
+		String reply = XML_EMPTY_REPLY;
 
 		return reply;
 	}
@@ -332,7 +338,7 @@ public class Xml implements ConstantsDataAccess {
 
 		Document doc = this._tools.createEmptyDoc();
 
-		Element root = doc.createElement("Reply");
+		Element root = doc.createElement(XML_REPLY_ROOT);
 		doc.appendChild(root);
 
 		Element info = doc.createElement("Info");
@@ -377,7 +383,7 @@ public class Xml implements ConstantsDataAccess {
 
 
 		Document doc = this._tools.createEmptyDoc();
-		Element root = doc.createElement("Reply");
+		Element root = doc.createElement(XML_REPLY_ROOT);
 		doc.appendChild(root);
 
 		Element playInfo = doc.createElement("PlayInfo");
@@ -387,27 +393,27 @@ public class Xml implements ConstantsDataAccess {
 		playInfo.appendChild(patternRE);
 
 		Element examples = doc.createElement("Examples");
-		Element example1 = doc.createElement("example");
+		Element example1 = doc.createElement(XML_NAME_NODE_EXAMPLE);
 		example1.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(1)
 				.getTextContent()));
 		examples.appendChild(example1);
 
-		Element example2 = doc.createElement("example");
+		Element example2 = doc.createElement(XML_NAME_NODE_EXAMPLE);
 		example2.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(3)
 				.getTextContent()));
 		examples.appendChild(example2);
 
-		Element example3 = doc.createElement("example");
+		Element example3 = doc.createElement(XML_NAME_NODE_EXAMPLE);
 		example3.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(5)
 				.getTextContent()));
 		examples.appendChild(example3);
 
-		Element example4 = doc.createElement("example");
+		Element example4 = doc.createElement(XML_NAME_NODE_EXAMPLE);
 		example4.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(7)
 				.getTextContent()));
 		examples.appendChild(example4);
 
-		Element example5 = doc.createElement("example");
+		Element example5 = doc.createElement(XML_NAME_NODE_EXAMPLE);
 		example5.appendChild(doc.createTextNode(Originalexamples.getChildNodes().item(9)
 				.getTextContent()));
 		examples.appendChild(example5);
@@ -442,7 +448,7 @@ public class Xml implements ConstantsDataAccess {
 
 		this.saveFile();
 
-		String reply = "1";
+		String reply = XML_EMPTY_REPLY;
 
 		return reply;
 	}
@@ -459,18 +465,66 @@ public class Xml implements ConstantsDataAccess {
 	 * @return Respuesta al usuario
 	 */
 	public String registerGameWin(Document pDoc) {
-		String gameName = this._tools.getValue(pDoc, "/Request/gameName/text()");
+		String gameName = this._tools.getValue(pDoc, XML_XPATH_GAMENAME);
+		String userName = this._tools.getValue(pDoc, XML_XPATH_USERNAME);
 
-		_core.notifyArduino("1" + gameName);
+		String notify = XML_ARDUINO_CODE_GAMEWIN + userName + XML_MESSAGE_GAME_WIN + gameName;
+
+		_core.notifyArduino(notify);
 
 		Node node = this._tools.getNode(_doc, "PatternRecognizer/Games/Game[name=\"" + gameName
 				+ "\"]");
 
 		this._nodes[1].removeChild(node);
 
+		String reply = XML_EMPTY_REPLY;
+
+		return reply;
+	}
+
+
+
+	/**
+	 * Método que notifica al arduino que un jugador perdio una partida
+	 * 
+	 * @param pDoc
+	 *            Xml enviado por el usuario
+	 * @return Respuesta al usuario
+	 */
+	public String registerGameLost(Document pDoc) {
+		String gameName = this._tools.getValue(pDoc, XML_XPATH_GAMENAME);
+		String userName = this._tools.getValue(pDoc, XML_XPATH_USERNAME);
+
+		String notify = XML_ARDUINO_CODE_GAMELOST + userName + XML_MESSAGE_GAME_LOST;
+
+		_core.notifyArduino(notify);
+
+		String reply = XML_EMPTY_REPLY;
+
+		return reply;
+	}
+
+
+
+	/**
+	 * Método que notifica al arduino cuando un jugador comienza a jugar una
+	 * partida
+	 * 
+	 * @param pDoc
+	 *            Xml enviado por el usuario
+	 * @return Respuesta al usuario
+	 */
+	public String notifyGameStart(Document pDoc) {
+		String gameName = this._tools.getValue(pDoc, XML_XPATH_GAMENAME);
+		String userName = this._tools.getValue(pDoc, XML_XPATH_USERNAME);
+
+		String notify = "3" + userName + " vs " + gameName + ". Good luck!!";
+		_core.notifyArduino(notify);
+
 		String reply = "1";
 
 		return reply;
+
 	}
 
 }
