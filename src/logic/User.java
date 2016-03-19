@@ -118,6 +118,8 @@ public class User implements Runnable, ConstantsLogic {
 					if (_message.equals(USER_EXIT_MESSAGE)) {
 						this.killUser();
 					}
+					else if (_message.equals("check"))
+						System.out.println("Prueba de conexion");
 					else {
 						System.out.println("ENTRANTE: " + _message);
 						String reply = _core.parser(_message);
