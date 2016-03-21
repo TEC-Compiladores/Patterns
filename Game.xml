@@ -2,177 +2,91 @@
 <PatternRecognizer>
     <Users>
         <name>Pablo</name>
-    <name>Sebas</name>
     <name>Pablo</name>
-    <name>dds</name>
-    <name>daniel</name>
-    <name/>
-    <name>slayer1</name>
-    <name>player2</name>
-    <name/>
-    <name>fff</name>
-    <name>lola</name>
-    <name>gusano</name>
-    <name>gusano s</name>
-    <name>.I.</name>
+    <name>Diego</name>
     <name>Pablo</name>
-    <name>pp</name>
-    <name>pn</name>
-    <name>Juan se la cone</name>
-    <name>ediondo</name>
-    <name>japi</name>
-    <name>hpppp</name>
-    <name>juan</name>
+    <name>Pablo</name>
+    <name>Pablo</name>
+    <name>Pablo</name>
+    <name>Pablo</name>
     <name>Pablo</name>
     <name>Gerald</name>
-    <name>Peppa</name>
-    <name>Vaio</name>
-    <name>Tec</name>
-    <name>Cerda</name>
-    <name>Mía Khalifa</name>
-    <name>Peppa pig</name>
-    <name>Mia Khalifa</name>
-    <name>Gerald playo</name>
-    <name>Gerald playo</name>
-    <name>La cerda</name>
-    <name>Juan Pablo</name>
+    <name>jose</name>
     <name>Pablo</name>
-    <name>Pablo</name>
-    <name>hfch</name>
-    <name>pablo</name>
-    <name>ghhg</name>
-    <name>hola</name>
-    <name>peppa</name>
-    <name>Pablo</name>
-    <name>yy</name>
-    <name>dick</name>
-    <name>dick</name>
     <name>juan</name>
-    <name>gg</name>
-    <name>yy</name>
-    <name>rr</name>
-    <name>gerald</name>
-    <name>92nd parado</name>
+    <name>Diego</name>
+    <name>felo</name>
     <name>Pablo</name>
-    <name>Pablo Brenes</name>
-    <name>slayer</name>
-    <name>hola hola</name>
-    <name>hola hola</name>
-    <name>slayer</name>
-    <name>Gerald se la come toda</name>
-    <name>yy</name>
-    <name>Slayer</name>
-    <name>perra</name>
-    <name>Pablo</name>
-    <name>hola</name>
-    <name>gg</name>
-    <name>Pablo</name>
-    <name>Test</name>
-    <name>Test</name>
-    <name/>
-    <name>Pablo</name>
-    <name>Pablo</name>
-    <name>Pablo</name>
-    <name>ccffx</name>
-    <name>test</name>
-    <name>fhd</name>
-    <name>Pablo</name>
-    <name>jsjs</name>
-    <name>hdj</name>
-    <name>fjfj</name>
-    <name>hfjd</name>
-    <name>nfnf</name>
-    <name>jfjfj</name>
-    <name>jfjf</name>
-    <name>jddj</name>
-    <name>jdjdj</name>
-    <name>jdjf</name>
-    <name>jfjf</name>
-    <name>jfjf</name>
-    <name>jfjf</name>
-    <name>jfjfjf</name>
-    <name>hgg</name>
-    <name>jfjd</name>
-    <name>kfkf</name>
-    <name>kdjdj</name>
+    <name>ge</name>
+    <name>Diego</name>
+    <name>tt</name>
+    <name>Diego</name>
+    <name>juan</name>
+    <name>Diego</name>
+    <name>diego2</name>
     </Users>
     <Games>
         
     
     <Game>
-            <name>BigCola</name>
-            <creator>Gery</creator>
-            <date>1458284829306</date>
-            <attempts>44</attempts>
-            <pattern>B*</pattern>
-            <alphabet>10</alphabet>
+            <name>Game3</name>
+            <creator>Pablo</creator>
+            <date>1458415230550</date>
+            <attempts>8</attempts>
+            <pattern>(a|b)+d*</pattern>
+            <alphabet>qwertyuiopasdfghjklñzxcvbnm</alphabet>
             <Examples>
-                <example>BB</example>
-                <example>BB</example>
-                <example>BB</example>
-                <example>BBB</example>
-                <example>B</example>
+                <example>bd</example>
+                <example>bba</example>
+                <example>b</example>
+                <example>adddddddd</example>
+                <example>ba</example>
+            </Examples>
+        </Game>
+    <Game>
+            <name>juegot</name>
+            <creator>gerald</creator>
+            <date>1458416386403</date>
+            <attempts>0</attempts>
+            <pattern>(1|0)*</pattern>
+            <alphabet>0123456789</alphabet>
+            <Examples>
+                <example/>
+                <example>0110011101</example>
+                <example>010</example>
+                <example/>
+                <example/>
             </Examples>
         </Game>
     
     <Game>
-            <name>Test1</name>
-            <creator>Test</creator>
-            <date>1458358665173</date>
-            <attempts>6</attempts>
-            <pattern>(a|d)*d+[a-z]r?</pattern>
-            <alphabet>qwertyuiopasdfghjklñzxcvbnm</alphabet>
+            <name>ggg</name>
+            <creator>Gerald</creator>
+            <date>1458417452254</date>
+            <attempts>0</attempts>
+            <pattern>(1|0)*</pattern>
+            <alphabet>0123456789</alphabet>
             <Examples>
-                <example>aadtr</example>
-                <example>aaadaaaaaadar</example>
-                <example>aaadg</example>
-                <example>dcr</example>
-                <example>dn</example>
+                <example>110001</example>
+                <example>100</example>
+                <example>1</example>
+                <example>11000</example>
+                <example>10</example>
             </Examples>
         </Game>
     <Game>
-            <name>Game1</name>
-            <creator>Pablo</creator>
-            <date>1458367250386</date>
+            <name>juego2</name>
+            <creator>gerald</creator>
+            <date>1458417634861</date>
             <attempts>4</attempts>
-            <pattern>[abcd]f+g+(com|org)</pattern>
-            <alphabet>qwertyuiopasdfghjklñzxcvbnm</alphabet>
+            <pattern>(1|0)*</pattern>
+            <alphabet>0123456789</alphabet>
             <Examples>
-                <example>cfggcom</example>
-                <example>cfgorg</example>
-                <example>dfffgorg</example>
-                <example>cfgggorg</example>
-                <example>affgggorg</example>
-            </Examples>
-        </Game>
-    <Game>
-            <name>kfkf</name>
-            <creator>jd</creator>
-            <date>1458372221768</date>
-            <attempts>0</attempts>
-            <pattern>A*</pattern>
-            <alphabet>!·$%&amp;/()=?¿Ç^*¨";:_|@#¬'¡}[]{`+´-.,ºª0123456789</alphabet>
-            <Examples>
-                <example>AAAA</example>
-                <example>AA</example>
-                <example>A</example>
-                <example>A</example>
-                <example>A</example>
-            </Examples>
-        </Game>
-    <Game>
-            <name>jfjf</name>
-            <creator>jfjf</creator>
-            <date>1458372365095</date>
-            <attempts>0</attempts>
-            <pattern>A</pattern>
-            <alphabet>!·$%&amp;/()=?¿Ç^*¨";:_|@#¬'¡}[]{`+´-.,ºª0123456789</alphabet>
-            <Examples>
-                <example>A</example>
-                <example>A</example>
-                <example>A</example>
-                <example>A</example>
-                <example>A</example>
+                <example>0</example>
+                <example>101</example>
+                <example>111</example>
+                <example>1</example>
+                <example>00</example>
             </Examples>
         </Game>
     </Games>
